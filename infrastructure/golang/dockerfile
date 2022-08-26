@@ -4,4 +4,4 @@ RUN apk update && apk add git
 # RUN go get github.com/gin-gonic/gin
 WORKDIR /go/src
 
-CMD ["go","run","main.go"]
+# CMD ["go","run","main.go"]

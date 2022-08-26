@@ -1,1 +1,25 @@
-<h1>aaaaaaavv</h1>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Sample App</title>
+  <link href="/assets/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <table border="1" class="todo_tb">
+    <tr>
+      <th>index</th>
+      <th>name</th>
+      <th>age</th>
+    </tr>
+    {{ range $index, $u := .users }}
+    <tr>
+      <td>{{ $u.Id }}</td>
+      <td>{{ $u.Name }}</td>
+      <td>{{ $u.Age }}</td>
+    </tr>
+      
+    {{end}}
+  </table>
+</body>
