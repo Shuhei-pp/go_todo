@@ -18,7 +18,7 @@ func main() {
         // バリデーション？
         var input data.JsonUserRequest
         if err := c.ShouldBindJSON(&input); err != nil{
-            c.JSON(http.StatusBadRequest,gin.H{"error": input})
+            c.JSON(http.StatusBadRequest,gin.H{"error": err.Error()})
             return
         }
 
