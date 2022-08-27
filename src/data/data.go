@@ -5,3 +5,8 @@ type User struct{
 	Name string
 	Age int64
 }
+
+type JsonUserRequest struct{
+	Name string `json:"name"`
+	Age int `json:"age"`
+}
