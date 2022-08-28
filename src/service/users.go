@@ -59,7 +59,7 @@ func  RegistUser(input data.JsonUserRequest) {
 	}
 	defer db.Close() //関数の最後に発動?らしいよ
 
-	sql := "INSERT INTO user (name,age) values ('"+input.Name+"',"+strconv.Itoa(input.Age)+")"        
+	var sql string = "INSERT INTO user (name,age) values ('"+input.Name+"',"+strconv.Itoa(input.Age)+")"        
 
 	rows, err := db.Query(sql)
 	if err != nil{
