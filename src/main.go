@@ -10,6 +10,7 @@ func main() {
     router.LoadHTMLGlob("templates/*")
     router.Static("/assets","assets")
 
+    // ルーティング
     router.POST("/api/registUser",controller.RegistUserByApi)
     router.GET("/",controller.SelectUser)
     router.Run(":8080")
