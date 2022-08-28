@@ -16,14 +16,15 @@
         <th>index</th>
         <th>name</th>
         <th>age</th>
+        <th>Delete</th>
       </tr>
       {{ range $index, $u := .users }}
       <tr>
         <td>{{ $u.Id }}</td>
         <td>{{ $u.Name }}</td>
         <td>{{ $u.Age }}</td>
+        <td><button value={{$u.Id}} class="btn btn-danger deleteButton">Delete</td>
       </tr>
-      
       {{end}}
     </table>
   </div>
@@ -45,7 +46,7 @@
             {{ end }}
           </select>
         </div>
-        <button type="submit" class="btn btn-primary">送信する</button>
+        <button type="submit" class="btn btn-primary">登録する</button>
       </div>
     </form>
   </div>

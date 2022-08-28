@@ -18,3 +18,26 @@ $registForm.submit(function(event){
     console.log("submit,fail.....")
   })
 })
+
+$deleteButton = $(".deleteButton")
+$deleteButton.click(function(event){
+  const c = confirm('本当に削除していいの!?')
+  if(c){
+    const data = { id : parseInt($deleteButton.val())}
+    $.ajax({
+      url: "/api/deleteUser",
+      type:"post",
+      dataType:"json",
+      data:JSON.stringify(data)
+    })
+    .done(function(response){
+      alert("削除完了!!")
+      location.reload()
+    })
+    .fail(function(res){
+      console.log(res)
+    })
+  }else{
+    alert("おけ！！")
+  }
+})
