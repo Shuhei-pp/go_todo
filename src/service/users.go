@@ -5,7 +5,6 @@ import(
 	"database/sql"
 	_"github.com/go-sql-driver/mysql"
 	"strconv"
-	"fmt"
 	"github.com/joho/godotenv"
 	"os"
 )
@@ -51,19 +50,34 @@ func SelectUser() []data.User{
 	return users
 }
 
+func DeleteUser(id int){
+	driver, connectInfo := GetDbInfoByEnv()
+	db, err := sql.Open(driver, connectInfo)
+	if err != nil{
+		panic("データベース開けず!（dbDelete)")
+	}
+	defer db.Close()
+
+	res,err := db.Exec("DELETE FROM user WHERE id = ?",id)
+	_=res
+	if err != nil{
+		panic("sqlミスってる!!!")
+	}
+}
+
 func  RegistUser(input data.JsonUserRequest) {
 	driver, connectInfo := GetDbInfoByEnv()
 	db, err := sql.Open(driver, connectInfo)
 	if err != nil{
 					panic("データベース開けず!（dbDelete)")
 	}
-	defer db.Close() //関数の最後に発動?らしいよ
+	defer db.Close()
 
 	var sql string = "INSERT INTO user (name,age) values ('"+input.Name+"',"+strconv.Itoa(input.Age)+")"        
 
-	rows, err := db.Query(sql)
+	res, err := db.Query(sql)
+	_=res
 	if err != nil{
-					panic("sqlミスってる!!!")
-					fmt.Print(rows)
+		panic("sqlミスってる!!!")
 	}
 }

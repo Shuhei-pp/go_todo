@@ -12,6 +12,7 @@ func main() {
 
     // ルーティング
     router.POST("/api/registUser",controller.RegistUserByApi)
-    router.GET("/",controller.SelectUser)
+    router.POST("/api/deleteUser",controller.DeleteUser)
+    router.GET("/",controller.ShowTopPage)
     router.Run(":8080")
 }

@@ -10,3 +10,7 @@ type JsonUserRequest struct{
 	Name string `json:"name"`
 	Age int `json:"age"`
 }
+
+type JsonDeleteUserId struct{
+	Id int `json:"id"`
+}
