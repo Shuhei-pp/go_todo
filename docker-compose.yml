@@ -4,6 +4,7 @@ services:
     container_name: go
     build: 
       context: ./infrastructure/golang
+      dockerfile: dockerfile
     tty: true
     ports:
       - 8080:8080
@@ -14,11 +15,23 @@ services:
     volumes:
       - ./src:/go/src
       - ./infrastructure/mysql/.env:/go/src/.env
+  
+  frontend:
+    container_name: frontend
+    tty: true
+    build:
+      context: ./infrastructure/frontend
+      dockerfile: dockerfile
+    volumes: 
+      - ./frontend:/usr/src/app
+    ports: 
+      - "3000:3000"
 
   db:
     container_name: db
     build:
       context: ./infrastructure/mysql
+      dockerfile: dockerfile
     tty: true
     platform: linux/x86_64
     ports:
