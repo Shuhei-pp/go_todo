@@ -6,10 +6,30 @@ import(
 	_"github.com/go-sql-driver/mysql"
 	"strconv"
 	"fmt"
+	"github.com/joho/godotenv"
+	"os"
 )
 
+func GetDbInfoByEnv() (string,string){
+	err := godotenv.Load(".env")
+	if err != nil{
+		panic("env読み込めんよ!!")
+	}
+	var dbDriver string = os.Getenv("DB_DRIVER")
+	var dbUser string = os.Getenv("MYSQL_USER")
+	var dbPassword string = os.Getenv("MYSQL_PASSWORD")
+	var dbHost string = os.Getenv("MYSQL_HOST")
+	var dbPORT string = os.Getenv("MYSQL_PORT")
+	var dbName string = os.Getenv("MYSQL_DATABASE")
+
+	var str string = dbUser+":"+dbPassword+"@("+dbHost+":"+dbPORT+")/"+dbName
+
+	return dbDriver, str
+}
+
 func SelectUser() []data.User{
-	db, err := sql.Open("mysql", "test_user:password@(db:3306)/test_database")
+	driver, connectInfo := GetDbInfoByEnv()
+	db, err := sql.Open(driver, connectInfo)
 	if err != nil{
 			panic("データベース開けず!（dbDelete)")
 	}
@@ -32,7 +52,8 @@ func SelectUser() []data.User{
 }
 
 func  RegistUser(input data.JsonUserRequest) {
-	db, err := sql.Open("mysql", "test_user:password@(db:3306)/test_database")
+	driver, connectInfo := GetDbInfoByEnv()
+	db, err := sql.Open(driver, connectInfo)
 	if err != nil{
 					panic("データベース開けず!（dbDelete)")
 	}
