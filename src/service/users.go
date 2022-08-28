@@ -4,7 +4,6 @@ import(
 	"todo/data"
 	"database/sql"
 	_"github.com/go-sql-driver/mysql"
-	"strconv"
 	"github.com/joho/godotenv"
 	"os"
 )
@@ -71,11 +70,9 @@ func  RegistUser(input data.JsonUserRequest) {
 	if err != nil{
 					panic("データベース開けず!（dbDelete)")
 	}
-	defer db.Close()
+	defer db.Close()         
 
-	var sql string = "INSERT INTO user (name,age) values ('"+input.Name+"',"+strconv.Itoa(input.Age)+")"        
-
-	res, err := db.Query(sql)
+	res, err := db.Exec("INSERT INTO user (name,age) values (?,?)", input.Name, input.Age)
 	_=res
 	if err != nil{
 		panic("sqlミスってる!!!")
