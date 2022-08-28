@@ -1,9 +1,11 @@
-package db
+package service
 
 import(
 	"todo/data"
 	"database/sql"
 	_"github.com/go-sql-driver/mysql"
+	"strconv"
+	"fmt"
 )
 
 func SelectUser() []data.User{
@@ -27,4 +29,20 @@ func SelectUser() []data.User{
 	}
 
 	return users
+}
+
+func  RegistUser(input data.JsonUserRequest) {
+	db, err := sql.Open("mysql", "test_user:password@(db:3306)/test_database")
+	if err != nil{
+					panic("データベース開けず!（dbDelete)")
+	}
+	defer db.Close() //関数の最後に発動?らしいよ
+
+	sql := "INSERT INTO user (name,age) values ('"+input.Name+"',"+strconv.Itoa(input.Age)+")"        
+
+	rows, err := db.Query(sql)
+	if err != nil{
+					panic("sqlミスってる!!!")
+					fmt.Print(rows)
+	}
 }
