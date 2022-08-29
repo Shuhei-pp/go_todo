@@ -12,7 +12,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Todo/>
+    <Todo key="1"/>
     <RegistForm/>
   </React.StrictMode>
 );

@@ -27,9 +27,9 @@ export const RegistForm = () => {
             <label> 年齢</label>
             <select id="age" name="age" className="form-control">
               <option value="">選択してください</option>
-              {ageArray.map(_=>{
+              {ageArray.map((_,i)=>{
                 return (
-                  <option value={String(_)}>{String(_)}</option>
+                  <option key={i} value={String(_)}>{String(_)}</option>
                 )
               })}
             </select>

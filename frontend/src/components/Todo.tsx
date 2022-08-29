@@ -21,16 +21,18 @@ export const Todo = () => {
   return (
     <Table striped bordered hover size="sm">
       <thead>
-        {Columns.map((Column,index) => {
-          return (
-            <th>{Column.Header}</th>
-          )
-        })}
+        <tr>
+          {Columns.map((Column,index) => {
+            return (
+              <th key={index}>{Column.Header}</th>
+            )
+          })}
+        </tr>
       </thead>
       <tbody>
-        {users.map((user) => {
+        {users.map((user,index) => {
           return(
-            <tr>
+            <tr key={index}>
               <td>{ user.id}</td>
               <td>{ user.name}</td>
               <td>{ user.age}</td>
