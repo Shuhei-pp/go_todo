@@ -29,6 +29,26 @@
     </table>
   </div>
   
-
+  <div class="container">
+    <form class="row" id="registUser" method="post">
+      <div class="col-sm-8 col-sm-offset-2">
+        <div class="form-group">
+          <label for="name"><span class="label label-danger">必須</span> お名前</label>
+          <input type="text" id="name" name="name" class="form-control" placeholder="例:test" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="age"> 年齢</label>
+          <select id="age" name="age" class="form-control">
+            <option value="">選択してください</option>
+            {{ range .array}}
+            <option value={{.}}>{{.}}</option>
+            {{ end }}
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">登録する</button>
+      </div>
+    </form>
+  </div>
   <script src="/assets/index.js"></script>
 </body>
