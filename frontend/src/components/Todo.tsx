@@ -1,45 +1,66 @@
 import Table from 'react-bootstrap/Table';
+import axios from 'axios'
+import { useState,useEffect } from 'react'
 
 interface User {
-  id: number,
-  name: string,
-  age: number
+  Id: number,
+  Name: string,
+  Age: number
 }
 
 export const Todo = () => {
+  const [users, setUsers] = useState<User[]>()
+  const [error, setError] = useState()
+
   const Columns = [
     { Header: "userid", accessor: "id" },
     { Header: "名前", accessor: "name" },
     { Header: "年齢", accessor: "age" },
   ]
-  const users: User[] = [
-    {id: 1,name: "kota",age:21},
-    {id: 2,name: "baba",age:23},
-    {id: 3,name: "mira",age:21},
-  ]
 
-  return (
-    <Table striped bordered hover size="sm">
-      <thead>
-        <tr>
-          {Columns.map((Column,index) => {
-            return (
-              <th key={index}>{Column.Header}</th>
+  useEffect(() => {//useEffectを使用することでreactレンダリング時に一度だけ読み込みます?
+    axios.get("http://localhost:8080/api/getUser")
+    .then(function (response:any) {
+      setUsers(response.data)
+    })
+    .catch(function (error) {
+      console.log(error)
+      setError(error)
+    })
+  },[])
+  
+  if (users)
+    return (
+      <Table striped bordered hover size="sm">
+        <thead>
+          <tr>
+            {Columns.map((Column,index) => {
+              return (
+                <th key={index}>{Column.Header}</th>
+              )
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user,index) => {
+            return(
+              <tr key={index}>
+                <td>{ user.Id}</td>
+                <td>{ user.Name}</td>
+                <td>{ user.Age}</td>
+              </tr>
             )
           })}
-        </tr>
-      </thead>
-      <tbody>
-        {users.map((user,index) => {
-          return(
-            <tr key={index}>
-              <td>{ user.id}</td>
-              <td>{ user.name}</td>
-              <td>{ user.age}</td>
-            </tr>
-          )
-        })}
-      </tbody>
-    </Table>
-  )
+        </tbody>
+      </Table>
+    )
+  else if (error)
+    return (
+      <p>データの取得に失敗しました</p>
+    )
+  else
+    return (
+      <p>データ取得中....</p>
+    )
+  
 }
