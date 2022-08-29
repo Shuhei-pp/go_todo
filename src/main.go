@@ -27,6 +27,7 @@ func main() {
     },))
 
     // ルーティング
+    router.GET("/api/getUser",controller.GetUserByApi)
     router.POST("/api/registUser",controller.RegistUserByApi)
     router.POST("/api/deleteUser",controller.DeleteUser)
     router.GET("/",controller.ShowTopPage)
