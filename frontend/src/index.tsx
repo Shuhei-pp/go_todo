@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 // import App from './App';
-import { Todo } from './Todo';
+import { Todo } from './components/Todo';
+import { RegistForm } from './components/Form';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 
@@ -11,7 +12,8 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Todo />
+    <Todo/>
+    <RegistForm/>
   </React.StrictMode>
 );
 
