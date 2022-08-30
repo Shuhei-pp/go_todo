@@ -7,6 +7,11 @@ import(
 	"net/http"
 )
 
+func GetUserByApi(c *gin.Context){
+	var users []data.User = service.SelectUser()
+	c.JSON(http.StatusOK,users)
+}
+
 func RegistUserByApi(c *gin.Context){
 
 	// バリデーション？
