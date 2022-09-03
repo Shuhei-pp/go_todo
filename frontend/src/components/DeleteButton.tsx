@@ -5,7 +5,13 @@ interface User {
   Age: number
 }
 
-export const DeleteButton = (props: { uid: number, handleDeleteUser: (users: User[]) => void,users:User[] }) => {
+interface DeleteButtonProps {
+  uid: number,
+  handleDeleteUser: (users: User[]) => void,
+  users: User[]
+}
+
+export const DeleteButton = (props: DeleteButtonProps) => {
 
   return (
     <td>
@@ -16,7 +22,7 @@ export const DeleteButton = (props: { uid: number, handleDeleteUser: (users: Use
   )
 }
 
-const deleteUserByAjax = (props: { uid: number, handleDeleteUser: (users: User[]) => void,users:User[] }) => {
+const deleteUserByAjax = (props: DeleteButtonProps) => {
   axios.post("http://localhost:8080/api/deleteUser", {
     id: props.uid
   })
