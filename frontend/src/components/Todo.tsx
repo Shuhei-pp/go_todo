@@ -56,6 +56,10 @@ export const Todo = () => {
         setUsers(newUsers)
     })
   }
+
+  const handleDeleteUser = (Users:User[]) => {
+    setUsers(Users)
+  }
   
   if (users)
     return (
@@ -77,7 +81,7 @@ export const Todo = () => {
                   <td>{ user.Id}</td>
                   <td>{ user.Name}</td>
                   <td>{user.Age}</td>
-                  <DeleteButton uid={ user.Id} />
+                  <DeleteButton uid={user.Id} handleDeleteUser={e => handleDeleteUser(e)} users={users} />
                 </tr>
               )
             })}
