@@ -50,14 +50,9 @@ export const Todo = () => {
       .then(function (response) {
         setName('')
         setAge('')
-        axios.get("http://localhost:8080/api/getUser")
-        .then(function (response: any) {
-          setUsers(response.data)
-        })
-        .catch(function (error) {
-          console.log(error)
-          setError(error)
-        })
+        const newUsers: any = users
+        newUsers.push(response.data)
+        setUsers(newUsers)
     })
   }
   

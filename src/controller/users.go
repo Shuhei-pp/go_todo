@@ -15,13 +15,14 @@ func GetUserByApi(c *gin.Context){
 func RegistUserByApi(c *gin.Context){
 
 	// バリデーション？
-	var input data.JsonUserRequest
+	var input data.User
 	if err := c.ShouldBindJSON(&input); err != nil{
 		c.JSON(http.StatusBadRequest,gin.H{"error": err.Error()})
 		return
 	}
 
-	service.RegistUser(input)
+	id :=service.RegistUser(input)
+	input.Id=id
 
 	c.JSON(http.StatusOK,input)
 }

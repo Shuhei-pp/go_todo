@@ -64,7 +64,7 @@ func DeleteUser(id int){
 	}
 }
 
-func  RegistUser(input data.JsonUserRequest) {
+func  RegistUser(input data.User) int64{
 	driver, connectInfo := GetDbInfoByEnv()
 	db, err := sql.Open(driver, connectInfo)
 	if err != nil{
@@ -72,9 +72,11 @@ func  RegistUser(input data.JsonUserRequest) {
 	}
 	defer db.Close()         
 
-	res, err := db.Exec("INSERT INTO user (name,age) values (?,?)", input.Name, input.Age)
-	_=res
+	res,err := db.Exec("INSERT INTO user (name,age) values (?,?)", input.Name, input.Age)
+	id,err := res.LastInsertId()
+
 	if err != nil{
 		panic("sqlミスってる!!!")
 	}
+	return id
 }
