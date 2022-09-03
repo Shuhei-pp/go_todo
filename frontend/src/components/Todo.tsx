@@ -1,6 +1,7 @@
 import Table from 'react-bootstrap/Table';
 import axios from 'axios'
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
+import {DeleteButton} from './DeleteButton'
 
 interface User {
   Id: number,
@@ -75,7 +76,8 @@ export const Todo = () => {
                 <tr key={index}>
                   <td>{ user.Id}</td>
                   <td>{ user.Name}</td>
-                  <td>{ user.Age}</td>
+                  <td>{user.Age}</td>
+                  <DeleteButton uid={ user.Id} />
                 </tr>
               )
             })}
