@@ -7,7 +7,7 @@ interface User {
 
 interface DeleteButtonProps {
   uid: number,
-  handleDeleteUser: (users: User[]) => void,
+  handleSetUser: (users: User[]) => void,
   users: User[]
 }
 
@@ -28,6 +28,6 @@ const deleteUserByAjax = (props: DeleteButtonProps) => {
   })
   .then(function () {
     const newUsers = props.users.filter(user => user.Id != props.uid)
-    props.handleDeleteUser(newUsers)
+    props.handleSetUser(newUsers)
   })
 }

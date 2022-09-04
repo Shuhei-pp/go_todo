@@ -1,7 +1,8 @@
 import Table from 'react-bootstrap/Table';
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import {DeleteButton} from './DeleteButton'
+import { DeleteButton } from './DeleteButton'
+import { Form } from './Form'
 
 interface User {
   Id: number,
@@ -13,7 +14,7 @@ export const Todo = () => {
   const [users, setUsers] = useState<User[]>()
   const [error, setError] = useState()
   const [name, setName] = useState('')
-  const [age, setAge] = useState('')
+  const [age, setAge] = useState(0)
 
   const Columns = [
     { Header: "userid", accessor: "id" },
@@ -32,32 +33,23 @@ export const Todo = () => {
       })
   }, [])
 
-  const handleChangeName = (event:any) => {
+  const handleChangeName = (event: any) => {
     setName(event.target.value)
+  }
+
+  const resetName = () => {
+    setName('')
   }
 
   const handleChangeAge = (event:any) => {
     setAge(event.target.value)
   }
 
-  const ageArray:Number[] =[...Array(30)].map((_,i)=>i)
-
-  const registUserByAxios = (event:any/*anyは避けたい。*/) =>{
-    event.preventDefault()
-    axios.post("http://localhost:8080/api/registUser",{
-      name: name,
-      age: Number(age)
-    })
-      .then(function (response) {
-        setName('')
-        setAge('')
-        const newUsers: any = users
-        newUsers.push(response.data)
-        setUsers(newUsers)
-    })
+  const resetAge = () => {
+    setAge(0)
   }
 
-  const handleDeleteUser = (Users:User[]) => {
+  const handleSetUser = (Users:User[]) => {
     setUsers(Users)
   }
   
@@ -81,36 +73,22 @@ export const Todo = () => {
                   <td>{ user.Id}</td>
                   <td>{ user.Name}</td>
                   <td>{user.Age}</td>
-                  <DeleteButton uid={user.Id} handleDeleteUser={e => handleDeleteUser(e)} users={users} />
+                  <DeleteButton uid={user.Id} handleSetUser={e => handleSetUser(e)} users={users} />
                 </tr>
               )
             })}
           </tbody>
         </Table>
-
-        <div className="container">
-          <form className="row">
-            <div className="col-sm-8 col-sm-offset-2">
-              <div className="form-group">
-                <label><span className="label label-danger">必須</span> お名前</label>
-                <input type="text" className="form-control" placeholder="例:test" value={name} onChange={(e)=>handleChangeName(e)} required/>
-              </div>
-              
-              <div className="form-group mt-2">
-                <label> 年齢</label>
-                <select className="form-control" onChange={(e)=>handleChangeAge(e)}>
-                  <option value="">選択してください</option>
-                  {ageArray.map((_,i)=>{
-                    return (
-                      <option key={i} value={String(_)}>{String(_)}</option>
-                    )
-                  })}
-                </select>
-              </div>
-              <button type="submit" className="btn btn-primary mt-3" onClick={registUserByAxios}>登録する</button>
-            </div>
-          </form>
-        </div>
+        <Form
+          name={name}
+          age={age}
+          users={users}
+          handleChangeName={e => handleChangeName(e)}
+          handleChangeAge={e => handleChangeAge(e)}
+          handleSetUser={e => handleSetUser(e)}
+          resetName={() => resetName}
+          resetAge={() => resetAge}
+        />
       </div>
     )
   else if (error)
